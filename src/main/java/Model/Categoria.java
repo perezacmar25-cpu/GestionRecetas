@@ -1,23 +1,30 @@
 package Model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.UniqueElements;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
 public class Categoria {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
-
-    @NotBlank
     private String nombre;
 
     private String descripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = false)
+    @Builder.Default
+    private List<Receta> recetas = new ArrayList<>();
 
 
 }
