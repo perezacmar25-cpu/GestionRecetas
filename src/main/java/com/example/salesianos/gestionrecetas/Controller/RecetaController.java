@@ -32,4 +32,11 @@ public class RecetaController {
         recetaService.eliminarReceta(id);
         return ResponseEntity.noContent().build();
     }
+
+    public ResponseEntity<RecetaDto> updateReceta(@PathVariable Long id, @RequestBody RecetaDto dto) {
+
+        return ResponseEntity.ok(
+                RecetaDto.of(recetaService.updateReceta(id,dto))
+        );
+    }
 }
