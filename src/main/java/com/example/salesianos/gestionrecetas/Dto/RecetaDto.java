@@ -2,14 +2,19 @@ package com.example.salesianos.gestionrecetas.Dto;
 
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Model.Dificultad;
+import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Model.Receta;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record RecetaDto(
         Long id,
         String nombre,
         Integer tiempoDePreparacion,
         Dificultad dificultad,
-        Long idCategoria
+        Long idCategoria,
+        Set<Long> idingredientes
 
 ) {
 
@@ -19,17 +24,21 @@ public record RecetaDto(
                 r.getNombre(),
                 r.getTiempoPreparacionMin(),
                 r.getDificultad(),
-                r.getCategoria().getId()
+                r.getCategoria().getId(),
+                r.getIngredientes().stream()
+                        .map(Ingrediente::getId)
+                        .collect(Collectors.toSet())
         );
 
     }
 
-    public Receta to(Categoria categoria) {
+    public Receta to(Categoria categoria,Set<Ingrediente> ingredientes1) {
         Receta r = new Receta();
         r.setDificultad(dificultad);
         r.setTiempoPreparacionMin(tiempoDePreparacion);
         r.setNombre(nombre);
         r.setCategoria(categoria);
+        r.setIngredientes(ingredientes1);
 
         return r;
     }
