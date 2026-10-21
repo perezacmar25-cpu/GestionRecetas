@@ -1,5 +1,6 @@
 package Service;
 
+import Dto.RecetaDto;
 import Model.Categoria;
 import Model.Receta;
 import Repository.CategoriaRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class RecetaService {
 
     private final RecetaRepository recetaRepository;
+    private final CategoriaRepository categoriaRepository;
 
     public Receta getRecetaById(Long id){
 
@@ -21,6 +23,15 @@ public class RecetaService {
                 .orElseThrow(RecetaNotFoundException()::new);
 
     }
+
+    public Receta addReceta(RecetaDto dto){
+
+        Categoria categoria = categoriaRepository.findById(dto.idCategoria()).orElse(null);
+
+        Receta receta = dto.to(categoria);
+        recetaRepository.save(receta);
+    }
+
 
 
 
