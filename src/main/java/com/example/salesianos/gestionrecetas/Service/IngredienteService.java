@@ -1,4 +1,4 @@
-package Service;
+package com.example.salesianos.gestionrecetas.Service;
 
 import org.springframework.stereotype.Service;
 

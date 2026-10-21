@@ -1,8 +1,8 @@
-package Service;
+package com.example.salesianos.gestionrecetas.Service;
 
-import Dto.CategoriaDto;
-import Model.Categoria;
-import Repository.CategoriaRepository;
+import com.example.salesianos.gestionrecetas.Dto.CategoriaDto;
+import com.example.salesianos.gestionrecetas.Model.Categoria;
+import com.example.salesianos.gestionrecetas.Repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
