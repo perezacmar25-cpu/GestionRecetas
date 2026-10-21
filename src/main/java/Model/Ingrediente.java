@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -22,5 +24,5 @@ public class Ingrediente {
 
     @ManyToMany(mappedBy = "ingredientes")
     @Builder.Default
-    private List<Receta> recetas = new ArrayList<>();
+    private Set<Receta> recetas = new HashSet<>();
 }

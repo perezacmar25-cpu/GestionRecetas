@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @Entity
@@ -33,7 +35,7 @@ public class Receta {
         inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
     )
     @Builder.Default
-    private List<Ingrediente> ingredientes = new ArrayList<>();
+    private Set<Ingrediente> ingredientes = new HashSet<>();
 
 
 }
