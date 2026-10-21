@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Data
@@ -34,6 +36,21 @@ public class RecetaService {
 
     public void eliminarReceta(Long id) {
         recetaRepository.deleteById(id);
+    }
+
+    public Receta updateReceta(Long id,RecetaDto dto){
+        Categoria categoria = categoriaRepository.findById(dto.idCategoria())
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+        return recetaRepository.findById(id)
+                .map(r->{
+                    r.setNombre(dto.nombre());
+                    r.setDificultad(dto.dificultad());
+                    r.setTiempoPreparacionMin(dto.tiempoDePreparacion());
+                    r.setCategoria(categoria);
+                    return recetaRepository.save(r);
+                }).orElse(null);
+
     }
 
 
