@@ -37,8 +37,16 @@ public class CategoriaService {
        Categoria categoria = dto.to();
 
        return categoriaRepository.save(categoria);
+    }
 
-
+    public Categoria updateCategoria(Long id,CategoriaDto dto){
+        return categoriaRepository.findById(id)
+                .map(c ->{
+                    c.setNombre(dto.nombre());
+                    c.setDescripcion(dto.descripcion());
+                    return categoriaRepository.save(c);
+                })
+                .orElse(null);
 
     }
 
