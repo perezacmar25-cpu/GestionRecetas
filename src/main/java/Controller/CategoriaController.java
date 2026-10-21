@@ -48,4 +48,12 @@ public class CategoriaController {
                 CategoriaDto.of(categoriaService.updateCategoria(id,categoria))
         );
     }
+
+    @DeleteMapping("({id}")
+    public ResponseEntity<Void> deleteProduct(Long id){
+
+        categoriaService.eliminarCategoria(id);
+        return ResponseEntity.noContent().build();
+
+    }
 }
