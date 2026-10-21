@@ -1,6 +1,6 @@
-package Dto;
+package com.example.salesianos.gestionrecetas.Dto;
 
-import Model.Receta;
+import com.example.salesianos.gestionrecetas.Model.Receta;
 
 public record RecetaResumenDto(Long id, String nombre) {
 

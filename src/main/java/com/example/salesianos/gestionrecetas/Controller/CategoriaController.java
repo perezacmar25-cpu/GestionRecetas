@@ -1,8 +1,8 @@
-package Controller;
+package com.example.salesianos.gestionrecetas.Controller;
 
-import Dto.CategoriaDto;
-import Model.Categoria;
-import Service.CategoriaService;
+import com.example.salesianos.gestionrecetas.Dto.CategoriaDto;
+import com.example.salesianos.gestionrecetas.Model.Categoria;
+import com.example.salesianos.gestionrecetas.Service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/api/v1/categorias")
 @RequiredArgsConstructor
 public class CategoriaController {
 
@@ -33,6 +33,7 @@ public class CategoriaController {
         return ResponseEntity.ok(listadto);
     }
 
+
     @PostMapping
     public ResponseEntity<CategoriaDto> addCategoria(@RequestBody CategoriaDto categoriaDto){
 
@@ -41,7 +42,7 @@ public class CategoriaController {
 
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<CategoriaDto> updateCategoria(@PathVariable Long id ,@RequestBody CategoriaDto categoria){
 
         return ResponseEntity.ok(
@@ -49,7 +50,7 @@ public class CategoriaController {
         );
     }
 
-    @DeleteMapping("({id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(Long id){
 
         categoriaService.eliminarCategoria(id);
@@ -57,9 +58,18 @@ public class CategoriaController {
 
     }
 
-    public ResponseEntity<CategoriaDto> getCategoriaById(Long id) {
-        return ResponseEntity.ok(CategoriaDto.of(categoriaService.getCategoriaById(id)));
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriaDto> getCategoriaById(@PathVariable Long id) {
 
+        Categoria categoria = categoriaService.getCategoriaById(id);
+
+        if (categoria == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(CategoriaDto.of(categoria));
+        }
     }
+
+
 
 }

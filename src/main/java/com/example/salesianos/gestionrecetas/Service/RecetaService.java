@@ -1,10 +1,10 @@
-package Service;
+package com.example.salesianos.gestionrecetas.Service;
 
-import Dto.RecetaDto;
-import Model.Categoria;
-import Model.Receta;
-import Repository.CategoriaRepository;
-import Repository.RecetaRepository;
+import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
+import com.example.salesianos.gestionrecetas.Model.Categoria;
+import com.example.salesianos.gestionrecetas.Model.Receta;
+import com.example.salesianos.gestionrecetas.Repository.CategoriaRepository;
+import com.example.salesianos.gestionrecetas.Repository.RecetaRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,11 @@ public class RecetaService {
         Categoria categoria = categoriaRepository.findById(dto.idCategoria()).orElse(null);
 
         Receta receta = dto.to(categoria);
-        recetaRepository.save(receta);
+        return recetaRepository.save(receta);
+    }
+
+    public void eliminarReceta(Long id) {
+        recetaRepository.deleteById(id);
     }
 
 

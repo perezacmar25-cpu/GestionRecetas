@@ -1,6 +1,6 @@
-package Dto;
+package com.example.salesianos.gestionrecetas.Dto;
 
-import Model.Categoria;
+import com.example.salesianos.gestionrecetas.Model.Categoria;
 
 import java.util.List;
 

@@ -1,17 +1,17 @@
-package Model;
+package com.example.salesianos.gestionrecetas.Model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@Builder
 @Entity
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Receta {
 
     @Id

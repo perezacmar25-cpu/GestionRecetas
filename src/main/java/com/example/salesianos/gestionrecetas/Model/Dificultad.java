@@ -1,4 +1,4 @@
-package Model;
+package com.example.salesianos.gestionrecetas.Model;
 
 public enum Dificultad {
     FACIL,

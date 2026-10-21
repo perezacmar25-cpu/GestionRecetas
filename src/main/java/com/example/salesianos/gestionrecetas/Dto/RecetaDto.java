@@ -1,8 +1,8 @@
-package Dto;
+package com.example.salesianos.gestionrecetas.Dto;
 
-import Model.Categoria;
-import Model.Dificultad;
-import Model.Receta;
+import com.example.salesianos.gestionrecetas.Model.Categoria;
+import com.example.salesianos.gestionrecetas.Model.Dificultad;
+import com.example.salesianos.gestionrecetas.Model.Receta;
 
 public record RecetaDto(
         Long id,

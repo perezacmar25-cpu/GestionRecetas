@@ -1,6 +1,6 @@
-package Repository;
+package com.example.salesianos.gestionrecetas.Repository;
 
-import Model.Ingrediente;
+import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
