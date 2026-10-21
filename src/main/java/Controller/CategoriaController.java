@@ -56,4 +56,10 @@ public class CategoriaController {
         return ResponseEntity.noContent().build();
 
     }
+
+    public ResponseEntity<CategoriaDto> getCategoriaById(Long id) {
+        return ResponseEntity.ok(CategoriaDto.of(categoriaService.getCategoriaById(id)));
+
+    }
+
 }
