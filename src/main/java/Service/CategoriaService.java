@@ -1,5 +1,6 @@
 package Service;
 
+import Dto.CategoriaDto;
 import Model.Categoria;
 import Repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,14 @@ public class CategoriaService {
 
     }
 
+    public Categoria crearCategoria(CategoriaDto dto) {
+       Categoria categoria = dto.to();
+
+       return categoriaRepository.save(categoria);
+
+
+
+    }
 
 
 
