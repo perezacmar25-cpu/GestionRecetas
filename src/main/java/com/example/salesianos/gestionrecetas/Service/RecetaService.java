@@ -11,7 +11,9 @@ import com.example.salesianos.gestionrecetas.Repository.CategoriaRepository;
 import com.example.salesianos.gestionrecetas.Repository.IngredienteRepository;
 import com.example.salesianos.gestionrecetas.Repository.RecetaRepository;
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -20,7 +22,8 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-@Data
+@Getter
+@Setter
 public class RecetaService {
 
     private final RecetaRepository recetaRepository;

@@ -15,7 +15,8 @@ public class RecetaController {
     private final RecetaService recetaService;
 
 
-    public ResponseEntity<RecetaDto> getRecetaById(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<RecetaDto> getRecetaById(@PathVariable Long id) {
         return ResponseEntity.ok(RecetaDto.of(recetaService.getRecetaById(id)));
     }
 
@@ -28,11 +29,14 @@ public class RecetaController {
         return ResponseEntity.status(201).body(RecetaDto.of(guardada));
 
     }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarReceta(@PathVariable Long id) {
         recetaService.eliminarReceta(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}")
     public ResponseEntity<RecetaDto> updateReceta(@PathVariable Long id, @RequestBody RecetaDto dto) {
 
         return ResponseEntity.ok(
