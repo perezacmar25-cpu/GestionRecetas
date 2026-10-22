@@ -1,6 +1,5 @@
 package com.example.salesianos.gestionrecetas.Service;
 
-import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Error.*;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
@@ -9,14 +8,12 @@ import com.example.salesianos.gestionrecetas.Model.Receta;
 import com.example.salesianos.gestionrecetas.Repository.CategoriaRepository;
 import com.example.salesianos.gestionrecetas.Repository.IngredienteRepository;
 import com.example.salesianos.gestionrecetas.Repository.RecetaRepository;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -100,11 +97,6 @@ public class RecetaService {
 
         comprobarIngrediente(receta,ingredienteId);
 
-        for (Ingrediente i : receta.getIngredientes()) {
-            if (i.getId().equals(ingredienteId)) {
-                throw new IngredienteAlredyAddedException(recetaId, ingredienteId);
-            }
-        }
 
         receta.getIngredientes().add(ingrediente);
         return recetaRepository.save(receta);

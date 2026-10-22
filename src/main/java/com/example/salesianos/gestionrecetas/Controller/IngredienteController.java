@@ -30,9 +30,9 @@ public class IngredienteController {
     }
 
     @PostMapping
-    public ResponseEntity<IngredienteDto> addIngrediente(@PathVariable Long id, @RequestBody IngredienteDto dto) {
+    public ResponseEntity<IngredienteDto> addIngrediente(@RequestBody IngredienteDto dto) {
 
-        Ingrediente ingrediente = ingredienteService.crearIngrediente(id,dto);
+        Ingrediente ingrediente = ingredienteService.crearIngrediente(dto);
 
         return ResponseEntity.status(201)
                 .body(IngredienteDto.of(ingrediente));
