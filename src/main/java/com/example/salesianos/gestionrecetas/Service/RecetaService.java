@@ -2,6 +2,7 @@ package com.example.salesianos.gestionrecetas.Service;
 
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Error.CategoriaNotFoundException;
+import com.example.salesianos.gestionrecetas.Error.RecetaNotFoundException;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Model.Receta;
@@ -28,7 +29,7 @@ public class RecetaService {
     public Receta getRecetaById(Long id){
 
         return recetaRepository.findById(id)
-                .orElseThrow(RecetaNotFoundException()::new);
+                .orElseThrow(() -> new RecetaNotFoundException(id));
 
     }
 
@@ -50,6 +51,7 @@ public class RecetaService {
     }
 
     public void eliminarReceta(Long id) {
+
         recetaRepository.deleteById(id);
     }
 

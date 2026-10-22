@@ -1,6 +1,7 @@
 package com.example.salesianos.gestionrecetas.Service;
 
 
+import com.example.salesianos.gestionrecetas.Error.RecetaNotFoundException;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Model.Receta;
 import com.example.salesianos.gestionrecetas.Repository.IngredienteRepository;
@@ -30,7 +31,7 @@ public class IngredienteService {
     }
     public Set<Ingrediente> getByReceta(Long id) {
         Receta receta = recetaRepository.findById(id)
-                .orElseThrow(new RecetaNotFoundException());
+                .orElseThrow(()-> new RecetaNotFoundException(id));
 
         return receta.getIngredientes();
 
