@@ -1,10 +1,8 @@
 package com.example.salesianos.gestionrecetas.Service;
 
+import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
-import com.example.salesianos.gestionrecetas.Error.CategoriaNotFoundException;
-import com.example.salesianos.gestionrecetas.Error.IngredienteNotFoundException;
-import com.example.salesianos.gestionrecetas.Error.RecetaNotFoundException;
-import com.example.salesianos.gestionrecetas.Error.TiempoInvalidoException;
+import com.example.salesianos.gestionrecetas.Error.*;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Model.Receta;
@@ -52,6 +50,14 @@ public class RecetaService {
         }
     }
 
+    private void comprobarIngrediente(Receta receta, Long ingredienteId) {
+        for (Ingrediente i : receta.getIngredientes()) {
+            if (i.getId().equals(ingredienteId)) {
+                throw new IngredienteAlredyAddedException(receta.getId(), ingredienteId);
+            }
+        }
+    }
+
     public Receta addReceta(RecetaDto dto){
 
         comprobarTiempo(dto.tiempoDePreparacion());
@@ -64,7 +70,7 @@ public class RecetaService {
 
     public void eliminarReceta(Long id) {
         Receta receta = recetaRepository.findById(id)
-                        .orElseThrow(() -> new CategoriaNotFoundException(id));
+                        .orElseThrow(() -> new RecetaNotFoundException(id));
 
         recetaRepository.deleteById(id);
     }
@@ -82,7 +88,7 @@ public class RecetaService {
                     r.setTiempoPreparacionMin(dto.tiempoDePreparacion());
                     r.setCategoria(categoria);
                     return recetaRepository.save(r);
-                }).orElse(null);
+                }).orElseThrow(() -> new RecetaNotFoundException(id));
 
     }
 
@@ -91,6 +97,8 @@ public class RecetaService {
 
         Ingrediente ingrediente = ingredienteRepository.findById(ingredienteId)
                 .orElseThrow(() -> new IngredienteNotFoundException(ingredienteId));
+
+        comprobarIngrediente(receta,ingredienteId);
 
         for (Ingrediente i : receta.getIngredientes()) {
             if (i.getId().equals(ingredienteId)) {
