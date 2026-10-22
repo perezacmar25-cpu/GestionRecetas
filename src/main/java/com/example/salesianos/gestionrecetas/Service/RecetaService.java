@@ -55,6 +55,8 @@ public class RecetaService {
     }
 
     public void eliminarReceta(Long id) {
+        Receta receta = recetaRepository.findById(id)
+                        .orElseThrow(() -> new CategoriaNotFoundException(id));
 
         recetaRepository.deleteById(id);
     }

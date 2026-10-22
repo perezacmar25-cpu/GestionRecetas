@@ -29,6 +29,7 @@ public class IngredienteController {
         return ResponseEntity.ok(lista);
     }
 
+    @PostMapping
     public ResponseEntity<IngredienteDto> addIngrediente(@PathVariable Long id, @RequestBody IngredienteDto dto) {
 
         Ingrediente ingrediente = ingredienteService.crearIngrediente(id,dto);
