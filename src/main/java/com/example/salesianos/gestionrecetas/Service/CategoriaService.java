@@ -43,11 +43,14 @@ public class CategoriaService {
                     c.setDescripcion(dto.descripcion());
                     return categoriaRepository.save(c);
                 })
-                .orElse(null);
+                .orElseThrow(() -> new CategoriaNotFoundException(id));
 
     }
 
     public void eliminarCategoria(Long id){
+        Categoria categoria = categoriaRepository.findById(id)
+                        .orElseThrow(() -> new CategoriaNotFoundException(id));
+
         categoriaRepository.deleteById(id);
     }
 
