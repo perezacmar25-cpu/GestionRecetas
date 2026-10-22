@@ -4,6 +4,7 @@ import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Error.CategoriaNotFoundException;
 import com.example.salesianos.gestionrecetas.Error.IngredienteNotFoundException;
 import com.example.salesianos.gestionrecetas.Error.RecetaNotFoundException;
+import com.example.salesianos.gestionrecetas.Error.TiempoInvalidoException;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Model.Receta;
@@ -45,8 +46,15 @@ public class RecetaService {
 
         return new HashSet<>(ingredienteRepository.findAllById(ids));
     }
+    private void comprobarTiempo(Integer tiempo) {
+        if (tiempo == null || tiempo <= 0) {
+            throw new TiempoInvalidoException();
+        }
+    }
 
     public Receta addReceta(RecetaDto dto){
+
+        comprobarTiempo(dto.tiempoDePreparacion());
 
         Categoria categoria = categoriaRepository.findById(dto.idCategoria())
                 .orElseThrow(() -> new CategoriaNotFoundException(dto.idCategoria()));
@@ -62,6 +70,8 @@ public class RecetaService {
     }
 
     public Receta updateReceta(Long id,RecetaDto dto){
+
+        comprobarTiempo(dto.tiempoDePreparacion());
         Categoria categoria = categoriaRepository.findById(dto.idCategoria())
                 .orElseThrow(() -> new CategoriaNotFoundException(dto.idCategoria()));
 
