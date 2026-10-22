@@ -1,5 +1,6 @@
 package com.example.salesianos.gestionrecetas.Controller;
 
+import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Model.Receta;
 import com.example.salesianos.gestionrecetas.Service.RecetaService;
@@ -42,5 +43,13 @@ public class RecetaController {
         return ResponseEntity.ok(
                 RecetaDto.of(recetaService.updateReceta(id,dto))
         );
+    }
+
+    @PostMapping("/{recetaId}/ingredientes")
+    public ResponseEntity<RecetaDto> anadirIngrediente(@PathVariable Long recetaId, @RequestBody IngredienteDto dto) {
+
+        Receta receta = recetaService.anadirIngrediente(recetaId, dto.id());
+
+        return ResponseEntity.status(201).body(RecetaDto.of(receta));
     }
 }

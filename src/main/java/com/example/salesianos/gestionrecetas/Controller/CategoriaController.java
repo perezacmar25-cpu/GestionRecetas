@@ -60,16 +60,9 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaDto> getCategoriaById(@PathVariable Long id) {
-
         Categoria categoria = categoriaService.getCategoriaById(id);
-
-        if (categoria == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(CategoriaDto.of(categoria));
-        }
+        return ResponseEntity.ok(CategoriaDto.of(categoria));
     }
-
 
 
 }
