@@ -1,13 +1,12 @@
 package com.example.salesianos.gestionrecetas.Controller;
 
 import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
+import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Service.IngredienteService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -28,6 +27,15 @@ public class IngredienteController {
                 .toList();
 
         return ResponseEntity.ok(lista);
+    }
+
+    public ResponseEntity<IngredienteDto> addIngrediente(@PathVariable Long id, @RequestBody IngredienteDto dto) {
+
+        Ingrediente ingrediente = ingredienteService.crearIngrediente(id,dto);
+
+        return ResponseEntity.status(201)
+                .body(IngredienteDto.of(ingrediente));
+
     }
 
 }
