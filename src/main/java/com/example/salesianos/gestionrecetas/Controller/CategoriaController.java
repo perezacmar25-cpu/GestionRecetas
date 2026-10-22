@@ -20,15 +20,12 @@ public class CategoriaController {
 
 
     @GetMapping
-    public ResponseEntity<List<CategoriaDto>> getAll(){
+    public ResponseEntity<List<CategoriaDto>> getAll() {
 
-        List<Categoria> lista = categoriaService.getAll();
-
-        List<CategoriaDto> listadto = new ArrayList<>();
-
-        for(Categoria categoria : lista){
-        listadto.add(CategoriaDto.of(categoria));
-        }
+        List<CategoriaDto> listadto = categoriaService.getAll()
+                .stream()
+                .map(CategoriaDto::of)
+                .toList();
 
         return ResponseEntity.ok(listadto);
     }
