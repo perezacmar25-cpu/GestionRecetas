@@ -1,6 +1,7 @@
 package com.example.salesianos.gestionrecetas.Service;
 
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
+import com.example.salesianos.gestionrecetas.Error.CategoriaNotFoundException;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Model.Receta;
@@ -42,7 +43,8 @@ public class RecetaService {
 
     public Receta addReceta(RecetaDto dto){
 
-        Categoria categoria = categoriaRepository.findById(dto.idCategoria()).orElse(null);
+        Categoria categoria = categoriaRepository.findById(dto.idCategoria())
+                .orElseThrow(() -> new CategoriaNotFoundException(dto.idCategoria()));
 
         return recetaRepository.save(dto.to(categoria,buscarIngredientes(dto.idingredientes())));
     }
@@ -53,7 +55,7 @@ public class RecetaService {
 
     public Receta updateReceta(Long id,RecetaDto dto){
         Categoria categoria = categoriaRepository.findById(dto.idCategoria())
-                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+                .orElseThrow(() -> new CategoriaNotFoundException(dto.idCategoria()));
 
         return recetaRepository.findById(id)
                 .map(r->{

@@ -1,6 +1,7 @@
 package com.example.salesianos.gestionrecetas.Service;
 
 import com.example.salesianos.gestionrecetas.Dto.CategoriaDto;
+import com.example.salesianos.gestionrecetas.Error.CategoriaNotFoundException;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,19 +18,15 @@ public class CategoriaService {
 
     public List<Categoria> getAll(){
 
-        List<Categoria> lista = categoriaRepository.findAll();
+        return  categoriaRepository.findAll();
 
-        if (lista.isEmpty()){
-            throw new CategoryNotFoundException();
-        }
 
-        return lista;
     }
 
     public Categoria getCategoriaById(Long id){
 
         return categoriaRepository.findById(id)
-                .orElseThrow(CategoryNotFoundException()::new);
+                .orElseThrow(() -> new CategoriaNotFoundException(id));
 
     }
 
