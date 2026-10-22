@@ -1,5 +1,6 @@
 package com.example.salesianos.gestionrecetas.Controller;
 
+import com.example.salesianos.gestionrecetas.Dto.CategoriaDto;
 import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Model.Receta;
@@ -7,6 +8,8 @@ import com.example.salesianos.gestionrecetas.Service.RecetaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/recetas")
@@ -19,6 +22,15 @@ public class RecetaController {
     @GetMapping("/{id}")
     public ResponseEntity<RecetaDto> getRecetaById(@PathVariable Long id) {
         return ResponseEntity.ok(RecetaDto.of(recetaService.getRecetaById(id)));
+    }
+
+    @GetMapping("/api/v1/recetas")
+    public ResponseEntity<List<RecetaDto>> getAll(){
+        List<RecetaDto> listaDto = recetaService.getAll()
+                .stream()
+                .map(RecetaDto::of)
+                .toList();
+        return ResponseEntity.ok(listaDto);
     }
 
 

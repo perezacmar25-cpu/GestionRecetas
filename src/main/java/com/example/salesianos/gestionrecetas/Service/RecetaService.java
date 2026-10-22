@@ -14,6 +14,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -30,6 +31,12 @@ public class RecetaService {
 
         return recetaRepository.findById(id)
                 .orElseThrow(() -> new RecetaNotFoundException(id));
+
+    }
+
+    public List<Receta> getAll(){
+        return recetaRepository.findAll();
+
 
     }
 
