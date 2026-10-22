@@ -2,6 +2,7 @@ package com.example.salesianos.gestionrecetas.Service;
 
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Error.CategoriaNotFoundException;
+import com.example.salesianos.gestionrecetas.Error.IngredienteNotFoundException;
 import com.example.salesianos.gestionrecetas.Error.RecetaNotFoundException;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
@@ -68,6 +69,22 @@ public class RecetaService {
                     return recetaRepository.save(r);
                 }).orElse(null);
 
+    }
+
+    public Receta anadirIngrediente(Long recetaId, Long ingredienteId) {
+        Receta receta = getRecetaById(recetaId);
+
+        Ingrediente ingrediente = ingredienteRepository.findById(ingredienteId)
+                .orElseThrow(() -> new IngredienteNotFoundException(ingredienteId));
+
+        for (Ingrediente i : receta.getIngredientes()) {
+            if (i.getId().equals(ingredienteId)) {
+                throw new IngredienteAlredyAddedException(recetaId, ingredienteId);
+            }
+        }
+
+        receta.getIngredientes().add(ingrediente);
+        return recetaRepository.save(receta);
     }
 
 
