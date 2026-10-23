@@ -39,7 +39,7 @@ API REST para gestionar **recetas**, **categorías** e **ingredientes**. Proyect
 
 ```bash
 # 1. Clonar el repositorio
-git clone <URL-DEL-REPOSITORIO>
+git clone <(https://github.com/perezacmar25-cpu/GestionRecetas.git)>
 cd GestionRecetas
 
 # 2. Ejecutar la aplicación
@@ -319,4 +319,4 @@ src/main/java/com/example/salesianos/gestionrecetas
 
 ## 👤 Autor
 
-Proyecto realizado de forma individual — *añade aquí tu nombre y curso*.
+Proyecto realizado de forma individual — *Mario Pérez Acosta*.
