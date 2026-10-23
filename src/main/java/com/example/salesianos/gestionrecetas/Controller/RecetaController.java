@@ -24,7 +24,7 @@ public class RecetaController {
         return ResponseEntity.ok(RecetaDto.of(recetaService.getRecetaById(id)));
     }
 
-    @GetMapping("/api/v1/recetas")
+    @GetMapping
     public ResponseEntity<List<RecetaDto>> getAll(){
         List<RecetaDto> listaDto = recetaService.getAll()
                 .stream()
