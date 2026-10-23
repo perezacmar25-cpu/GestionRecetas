@@ -2,6 +2,7 @@ package com.example.salesianos.gestionrecetas.Service;
 
 import com.example.salesianos.gestionrecetas.Dto.CategoriaDto;
 import com.example.salesianos.gestionrecetas.Error.CategoriaNotFoundException;
+import com.example.salesianos.gestionrecetas.Error.CategoriaRepetidaException;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,11 @@ public class CategoriaService {
     }
 
     public Categoria crearCategoria(CategoriaDto dto) {
-       Categoria categoria = dto.to();
-
-       return categoriaRepository.save(categoria);
+       categoriaRepository.findByNombre(dto.nombre())
+               .ifPresent(c ->{
+                   throw new CategoriaRepetidaException(dto.nombre());
+               });
+       return categoriaRepository.save(dto.to());
     }
 
     public Categoria updateCategoria(Long id,CategoriaDto dto){
