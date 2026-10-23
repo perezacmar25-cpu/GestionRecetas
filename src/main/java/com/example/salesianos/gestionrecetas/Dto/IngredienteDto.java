@@ -1,9 +1,12 @@
 package com.example.salesianos.gestionrecetas.Dto;
 
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
+import jakarta.validation.constraints.NotBlank;
 
 public record IngredienteDto(
         Long id,
+
+        @NotBlank
         String nombre
 ) {
 

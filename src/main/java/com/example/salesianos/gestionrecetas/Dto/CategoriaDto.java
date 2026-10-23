@@ -1,11 +1,14 @@
 package com.example.salesianos.gestionrecetas.Dto;
 
 import com.example.salesianos.gestionrecetas.Model.Categoria;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
 public record CategoriaDto(
         Long id,
+
+        @NotBlank
         String nombre,
         String descripcion,
         List<RecetaResumenDto> recetas) {

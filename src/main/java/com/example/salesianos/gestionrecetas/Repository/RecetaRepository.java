@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RecetaRepository extends JpaRepository<Receta, Long> {
-
+    boolean existsByNombre(String nombre);
 }

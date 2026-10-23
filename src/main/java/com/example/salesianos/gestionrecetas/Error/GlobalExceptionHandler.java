@@ -7,6 +7,7 @@ import jakarta.validation.ElementKind;
 import jakarta.validation.Path;
 import lombok.Builder;
 import org.jspecify.annotations.Nullable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -65,6 +66,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return problem;
     }
+
+    @ExceptionHandler(RecetaNombreDuplicadoException.class)
+    public ProblemDetail handleRecetaNombreDuplicado(RecetaNombreDuplicadoException ex) {
+
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problem.setTitle("Nombre de receta duplicado");
+        problem.setDetail(ex.getMessage());
+        problem.setType(URI.create("https://example.com/errors/receta-nombre-duplicado"));
+
+        return problem;
+    }
+
+   
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ProblemDetail handleConstraintViolation(ConstraintViolationException ex) {

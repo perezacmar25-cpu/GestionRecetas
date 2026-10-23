@@ -4,15 +4,23 @@ import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Model.Dificultad;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Model.Receta;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public record RecetaDto(
         Long id,
+
+        @NotBlank
         String nombre,
+
+        @NotNull
         Integer tiempoDePreparacion,
+        @NotNull
         Dificultad dificultad,
+        @NotNull
         Long idCategoria,
         Set<IngredienteDto> ingredientes
 
