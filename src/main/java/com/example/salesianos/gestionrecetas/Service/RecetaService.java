@@ -64,6 +64,7 @@ public class RecetaService {
         if (tiempo == null || tiempo <= 0) {
             throw new TiempoInvalidoException();
         }
+
     }
 
     private void comprobarNombreNoRepetido(String nombre) {

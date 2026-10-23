@@ -1,5 +1,6 @@
 package com.example.salesianos.gestionrecetas.Service;
 import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
+import com.example.salesianos.gestionrecetas.Error.IngredienteRepetidoException;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Repository.IngredienteRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +27,11 @@ public class IngredienteService {
     }
 
     public Ingrediente crearIngrediente(IngredienteDto dto) {
-        Ingrediente ingrediente = dto.to();
-
-        return ingredienteRepository.save(ingrediente);
+        ingredienteRepository.findByNombre(dto.nombre())
+                .ifPresent(i -> {
+                    throw new IngredienteRepetidoException(dto.nombre());
+                });
+        return ingredienteRepository.save(dto.to());
     }
 }
 

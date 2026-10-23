@@ -89,6 +89,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(IngredienteRepetidoException.class)
+    public ProblemDetail handleIngredienteRepetido(IngredienteRepetidoException ex) {
+
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problem.setTitle("Ingrediente repetido");
+        problem.setDetail(ex.getMessage());
+        problem.setType(URI.create("https://example.com/errors/ingrediente-repetido"));
+
+        return problem;
+    }
    
 
     @ExceptionHandler(ConstraintViolationException.class)

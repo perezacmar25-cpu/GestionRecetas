@@ -42,6 +42,11 @@ public class CategoriaService {
     public Categoria updateCategoria(Long id,CategoriaDto dto){
         return categoriaRepository.findById(id)
                 .map(c ->{
+                    categoriaRepository.findByNombre(dto.nombre())
+                                    .filter(categoria -> !categoria.getId().equals(id))
+                                            .ifPresent(categoria -> {throw new CategoriaRepetidaException(dto.nombre());
+                                            });
+
                     c.setNombre(dto.nombre());
                     c.setDescripcion(dto.descripcion());
                     return categoriaRepository.save(c);
