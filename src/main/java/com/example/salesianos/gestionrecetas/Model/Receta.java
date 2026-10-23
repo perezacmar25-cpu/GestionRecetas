@@ -18,11 +18,12 @@ public class Receta {
     @GeneratedValue
     private Long id;
 
-    
+    @Column(unique = true)
     private String nombre;
 
     private Integer tiempoPreparacionMin;
 
+    @Enumerated(EnumType.STRING)
     private Dificultad dificultad;
 
     @ManyToOne

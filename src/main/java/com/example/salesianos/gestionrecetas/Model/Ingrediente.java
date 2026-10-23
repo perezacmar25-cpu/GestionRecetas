@@ -19,6 +19,7 @@ public class Ingrediente {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String nombre;
 
     @ManyToMany(mappedBy = "ingredientes")
