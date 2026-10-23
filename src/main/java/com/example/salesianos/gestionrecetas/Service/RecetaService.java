@@ -1,5 +1,6 @@
 package com.example.salesianos.gestionrecetas.Service;
 
+import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Error.*;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
@@ -41,12 +42,23 @@ public class RecetaService {
     }
 
     //Ayuda de la IA, no sabía como hacer para meter los ingredientes con las recetas.
-    private Set<Ingrediente> buscarIngredientes(Set<Long> ids) {
-        if (ids == null || ids.isEmpty()){
-            return new HashSet<>();
+    private Set<Ingrediente> buscarIngredientes(Set<IngredienteDto> ingredientesDto) {
+
+        Set<Ingrediente> resultado = new HashSet<>();
+
+        if (ingredientesDto == null) {
+            return resultado;
         }
 
-        return new HashSet<>(ingredienteRepository.findAllById(ids));
+        Set<Long> ids = new HashSet<>();
+        for (IngredienteDto i : ingredientesDto) {
+            if (i.id() != null) {
+                ids.add(i.id());
+            }
+        }
+
+        resultado.addAll(ingredienteRepository.findAllById(ids));
+        return resultado;
     }
     private void comprobarTiempo(Integer tiempo) {
         if (tiempo == null || tiempo <= 0) {
@@ -69,7 +81,7 @@ public class RecetaService {
         Categoria categoria = categoriaRepository.findById(dto.idCategoria())
                 .orElseThrow(() -> new CategoriaNotFoundException(dto.idCategoria()));
 
-        return recetaRepository.save(dto.to(categoria,buscarIngredientes(dto.idingredientes())));
+        return recetaRepository.save(dto.to(categoria,buscarIngredientes(dto.ingredientes())));
     }
 
     public void eliminarReceta(Long id) {

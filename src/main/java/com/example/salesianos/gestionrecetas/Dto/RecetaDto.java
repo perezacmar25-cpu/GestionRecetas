@@ -14,20 +14,22 @@ public record RecetaDto(
         Integer tiempoDePreparacion,
         Dificultad dificultad,
         Long idCategoria,
-        Set<Long> idingredientes
+        Set<IngredienteDto> ingredientes
 
 ) {
 
     public static RecetaDto of(Receta r){
+        Set<IngredienteDto> ingredientesDto = r.getIngredientes().stream()
+                .map(IngredienteDto::of)
+                .collect(Collectors.toSet());
+
         return new RecetaDto(
                 r.getId(),
                 r.getNombre(),
                 r.getTiempoPreparacionMin(),
                 r.getDificultad(),
                 r.getCategoria().getId(),
-                r.getIngredientes().stream()
-                        .map(Ingrediente::getId)
-                        .collect(Collectors.toSet())
+                ingredientesDto
         );
 
     }
