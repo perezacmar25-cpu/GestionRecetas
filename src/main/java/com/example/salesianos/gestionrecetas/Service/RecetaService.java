@@ -66,6 +66,12 @@ public class RecetaService {
         }
     }
 
+    private void comprobarNombreNoRepetido(String nombre) {
+        if (recetaRepository.existsByNombre(nombre)) {
+            throw new RecetaNombreDuplicadoException(nombre);
+        }
+    }
+
     private void comprobarIngrediente(Receta receta, Long ingredienteId) {
         for (Ingrediente i : receta.getIngredientes()) {
             if (i.getId().equals(ingredienteId)) {
@@ -77,6 +83,7 @@ public class RecetaService {
     public Receta addReceta(RecetaDto dto){
 
         comprobarTiempo(dto.tiempoDePreparacion());
+        comprobarNombreNoRepetido(dto.nombre());
 
         Categoria categoria = categoriaRepository.findById(dto.idCategoria())
                 .orElseThrow(() -> new CategoriaNotFoundException(dto.idCategoria()));
@@ -99,6 +106,9 @@ public class RecetaService {
 
         return recetaRepository.findById(id)
                 .map(r->{
+                    if (!r.getNombre().equals(dto.nombre())) {
+                        comprobarNombreNoRepetido(dto.nombre());
+                    }
                     r.setNombre(dto.nombre());
                     r.setDificultad(dto.dificultad());
                     r.setTiempoPreparacionMin(dto.tiempoDePreparacion());

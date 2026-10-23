@@ -3,6 +3,7 @@ package com.example.salesianos.gestionrecetas.Controller;
 import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
 import com.example.salesianos.gestionrecetas.Model.Ingrediente;
 import com.example.salesianos.gestionrecetas.Service.IngredienteService;
+import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class IngredienteController {
     }
 
     @PostMapping
-    public ResponseEntity<IngredienteDto> addIngrediente(@RequestBody IngredienteDto dto) {
+    public ResponseEntity<IngredienteDto> addIngrediente(@Valid @RequestBody IngredienteDto dto) {
 
         Ingrediente ingrediente = ingredienteService.crearIngrediente(dto);
 

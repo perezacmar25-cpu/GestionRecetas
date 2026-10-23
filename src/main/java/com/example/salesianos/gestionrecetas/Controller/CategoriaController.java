@@ -3,6 +3,7 @@ package com.example.salesianos.gestionrecetas.Controller;
 import com.example.salesianos.gestionrecetas.Dto.CategoriaDto;
 import com.example.salesianos.gestionrecetas.Model.Categoria;
 import com.example.salesianos.gestionrecetas.Service.CategoriaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class CategoriaController {
 
 
     @PostMapping
-    public ResponseEntity<CategoriaDto> addCategoria(@RequestBody CategoriaDto categoriaDto){
+    public ResponseEntity<CategoriaDto> addCategoria(@Valid @RequestBody CategoriaDto categoriaDto){
 
         return ResponseEntity.status(201)
                 .body(CategoriaDto.of(categoriaService.crearCategoria(categoriaDto)));
@@ -40,7 +41,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaDto> updateCategoria(@PathVariable Long id ,@RequestBody CategoriaDto categoria){
+    public ResponseEntity<CategoriaDto> updateCategoria(@PathVariable Long id ,@Valid @RequestBody CategoriaDto categoria){
 
         return ResponseEntity.ok(
                 CategoriaDto.of(categoriaService.updateCategoria(id,categoria))

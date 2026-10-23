@@ -5,6 +5,7 @@ import com.example.salesianos.gestionrecetas.Dto.IngredienteDto;
 import com.example.salesianos.gestionrecetas.Dto.RecetaDto;
 import com.example.salesianos.gestionrecetas.Model.Receta;
 import com.example.salesianos.gestionrecetas.Service.RecetaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class RecetaController {
 
 
     @PostMapping
-    public ResponseEntity<RecetaDto> addReceta(@RequestBody RecetaDto dto) {
+    public ResponseEntity<RecetaDto> addReceta(@Valid @RequestBody RecetaDto dto) {
 
         Receta guardada = recetaService.addReceta(dto);
 
@@ -50,7 +51,7 @@ public class RecetaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RecetaDto> updateReceta(@PathVariable Long id, @RequestBody RecetaDto dto) {
+    public ResponseEntity<RecetaDto> updateReceta(@PathVariable Long id, @Valid @RequestBody RecetaDto dto) {
 
         return ResponseEntity.ok(
                 RecetaDto.of(recetaService.updateReceta(id,dto))
@@ -58,7 +59,7 @@ public class RecetaController {
     }
 
     @PostMapping("/{recetaId}/ingredientes")
-    public ResponseEntity<RecetaDto> anadirIngrediente(@PathVariable Long recetaId, @RequestBody IngredienteDto dto) {
+    public ResponseEntity<RecetaDto> anadirIngrediente(@PathVariable Long recetaId, @Valid @RequestBody IngredienteDto dto) {
 
         Receta receta = recetaService.anadirIngrediente(recetaId, dto.id());
 
